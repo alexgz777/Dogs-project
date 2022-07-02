@@ -69,14 +69,11 @@ let postDogs = (name, height, weight, lifeSpan, temperament) => {
       name: temperament,
     },
   })
-    .then(() => {
+  /*   .then(() => {
       dog.addTemperament(temperaments);
-    })
-    .then(() => {
-      return `La raza ha sido posteada existosamente`;
-    })
-    .catch(() => {
-      return `La raza no ha podido ser posteada`;
+    }) */
+    .catch((error) => {
+      console.error(error);
     });
 };
 module.exports = {

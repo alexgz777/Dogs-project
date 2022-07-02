@@ -52,7 +52,7 @@ router.get("/temperaments", (req, res) => {
 router.post("/dogs", (req, res) => {
   const { name, height, weight, lifeSpan, temperament } = req.body;
   postDogs(name, height, weight, lifeSpan, temperament)
-    .then(() => res.status(200).send("La raza ha sido posteada existosamente"))
+    .then((data) => res.status(200).json(data).send("La raza ha sido posteada existosamente"))
     .catch((error) => {
       console.error(error);
       res.status(400).send(`La raza no ha podido ser posteada`);

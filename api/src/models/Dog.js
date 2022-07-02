@@ -14,6 +14,7 @@ module.exports = (sequelize) => {
     height: { type: DataTypes.INTEGER, allowNull: false },
     weight: { type: DataTypes.INTEGER, allowNull: false },
     lifeSpan: { type: DataTypes.INTEGER },
+    image: { type: DataTypes.STRING },
     created: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
