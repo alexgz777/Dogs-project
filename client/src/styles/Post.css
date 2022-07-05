@@ -1,0 +1,58 @@
+.post {
+  display: grid;
+  place-items: center;
+
+  text-align: center;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  margin-left: 20em;
+  margin-right: 20em;
+  padding-bottom: 4em;
+  padding-top: 2em;
+  color: white;
+  background-color: #493a64;
+  border-radius: 1em;
+  outline: 0.5px double white;
+  outline-width: 0.3em;
+  outline-offset: -10px;
+}
+.button__Post {
+  width: 10em;
+  height: 2.5em;
+  background-color: #ec3f36;
+  padding-top: 1em;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  border-radius: 0.5em;
+  border: none;
+}
+.button__Post:hover {
+  transform: scale(1.1);
+  transition: all 300ms;
+}
+input {
+  width: 20em;
+}
+select {
+  width: 20em;
+  text-align: center;
+}
+.form__div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.input__div {
+  width: 8.7em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.error__div {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.error__output {
+  width: 20em;
+  margin-left: 1em;
+  margin-right: 1em;
+}

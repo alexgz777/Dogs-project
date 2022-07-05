@@ -1,0 +1,22 @@
+.searchbar {
+  text-align: center;
+  padding: 1em;
+}
+.input__search {
+  width: 20em;
+  height: 2.5em;
+}
+.input__search:hover {
+border-color: #ec3f36;
+}
+.button__search {
+  width: 7em;
+  height: 2.2em;
+  background-color: #493a64;
+  color: #ec3f36;
+  font-size: 18px;
+}
+.button__search:hover {
+  transform: scale(1.1);
+  transition: all 300ms;
+}

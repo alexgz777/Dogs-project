@@ -1,4 +1,21 @@
-.breedImage{
-    width: 20em;
-    height: 20em;
+.breedImage {
+  margin-top: 4em;
+  border-radius: 1em;
+
+  width: 20em;
+  height: 20em;
+}
+.card {
+  background-color: #493a64ef;
+  border-radius: 1em;
+  width: 30em;
+  height: 38em;
+  color: white;
+  outline: .5px double white;
+  outline-width: .3em;
+  outline-offset: -10px;
+}
+.card:hover {
+  transform: scale(1.1);
+  transition: all 300ms;
 }

@@ -1,0 +1,49 @@
+.details {
+  display: grid;
+  place-items: center;
+}
+.details {
+  text-align: center;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  margin-left: 20em;
+  margin-right: 20em;
+  padding-bottom: 2em;
+  color: white;
+  background-color: #493a64;
+  border-radius: 1em;
+  outline: 0.5px double white;
+  outline-width: 0.3em;
+  outline-offset: -10px;
+}
+.subtitleTemp {
+  width: 20em;
+  height: 4em;
+}
+.breedImageDetails {
+  margin-top: 4em;
+  border-radius: 1em;
+
+  width: 20em;
+  height: 20em;
+}
+.breedImageDetails:hover {
+  transform: scale(1.1);
+  transition: all 300ms;
+}
+.message__loading {
+}
+.button__back {
+  width: 10em;
+  height: 2.5em;
+  background-color: #ec3f36;
+  padding-top: 1em;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  border-radius: 0.5em;
+}
+.button__back:hover {
+  transform: scale(1.1);
+  transition: all 300ms;
+}

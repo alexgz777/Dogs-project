@@ -3,45 +3,73 @@ import "../styles/Post.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, postDogs } from "../redux/actions";
 
+const handleValidate = (inputs) => {
+  let errors = {};
+  if (!inputs.name) errors.name = "Escriba el nombre";
+
+  if (!inputs.heightMin || !inputs.heightMax)
+    errors.height = "Escriba la altura mínima y máxima";
+  if (!inputs.weightMin || !inputs.weightMax)
+    errors.weight = "Escriba el peso mínimo y máximo";
+
+  if (!inputs.lifeSpan) errors.lifeSpan = "Escriba los años de vida";
+  if (!inputs.temperaments) errors.temperaments = "Elija temperamento/s";
+  if (!inputs.image) errors.image = "Coloque el link de una imagen";
+  return errors;
+};
+
 const Post = () => {
   const temperament = useSelector((state) => state.temperament);
+  console.log(temperament);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTemperaments());
-  }, [dispatch]);
+  const [button, setButton] = useState(true);
 
   const initialState = {
     name: "",
-    height: "",
-    weight: "",
+    heightMin: "",
+    heightMax: "",
+    weightMin: "",
+    weightMax: "",
     lifeSpan: "",
     temperaments: [],
     image: "",
   };
 
   const [form, setForm] = useState(initialState);
-  const [error, setError] = useState({});
+  const [error, setError] = useState(initialState);
 
-  const handleValidate = (inputs) => {
-    const errors = {};
-    if (!inputs.name) errors.name = "Escriba el nombre";
-    if (!inputs.height) errors.height = "Escriba la altura";
-    if (!inputs.weight) errors.weight = "Escriba el peso";
-    if (!inputs.lifeSpan) errors.lifeSpan = "Escriba los años de vida";
-    if (!inputs.temperaments) errors.temperaments = "Elija temperamento/s";
-    if (!inputs.image) errors.image = "Coloque el link de una imagen";
-    return errors;
-  };
+  useEffect(() => {
+    dispatch(getTemperaments());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (
+      form.name.length > 0 &&
+      form.heightMin.length > 0 &&
+      form.heightMax.length > 0 &&
+      form.weightMin.length > 0 &&
+      form.weightMax.length > 0 &&
+      form.lifeSpan.length > 0
+    )setButton(false);
+    else setButton(true);
+  }, [form, setButton]);
+
   const handleTemperaments = (e) => {
-    e.preventDefault();
     setForm({
       ...form,
       temperaments: [...form.temperaments, e.target.value],
     });
   };
+  const handleDelete = (e) => {
+    setForm({
+      ...form,
+      temperaments: form.temperaments.filter(
+        (temperament) => temperament !== e
+      ),
+    });
+  };
   const handleChange = (e) => {
-    e.preventDefault();
     setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -64,7 +92,8 @@ const Post = () => {
   };
 
   return (
-    <form>
+    <form className="post">
+      <h1>Cargá los datos y posteá tu propia raza:</h1>
       <input
         type="text"
         name="name"
@@ -73,22 +102,52 @@ const Post = () => {
         onChange={(e) => handleChange(e)}
       />
       <p>{error.name}</p>
-      <input
-        type="text"
-        name="height"
-        placeholder="Altura"
-        value={form.height}
-        onChange={(e) => handleChange(e)}
-      />
-      <p>{error.height}</p>
-      <input
-        type="text"
-        name="weight"
-        placeholder="Peso"
-        value={form.weight}
-        onChange={(e) => handleChange(e)}
-      />
-      <p>{error.weight}</p>
+      <div className="form__div">
+        <input
+          className="input__div"
+          type="text"
+          name="heightMin"
+          placeholder="Altura Min"
+          value={form.height}
+          onChange={(e) => handleChange(e)}
+        />
+
+        <input
+          className="input__div"
+          type="text"
+          name="heightMax"
+          placeholder="Altura Max"
+          value={form.height}
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
+      <div className="error__div">
+        <p className="error__output">{error.height}</p>
+      </div>
+
+      <div className="form__div">
+        <input
+          className="input__div"
+          type="text"
+          name="weightMin"
+          placeholder="Peso Min"
+          value={form.weight}
+          onChange={(e) => handleChange(e)}
+        />
+
+        <input
+          className="input__div"
+          type="text"
+          name="weightMax"
+          placeholder="Peso Max"
+          value={form.weight}
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
+      <div className="error__div">
+        <p className="error__output">{error.weight}</p>
+      </div>
+
       <input
         type="text"
         name="lifeSpan"
@@ -97,7 +156,10 @@ const Post = () => {
         onChange={(e) => handleChange(e)}
       />
       <p>{error.lifeSpan}</p>
-      <select name="temperaments" >
+      <select name="temperaments">
+        <option disabled selected>
+          Temperamentos
+        </option>
         {temperament.map((e) => {
           return (
             <option
@@ -110,8 +172,15 @@ const Post = () => {
           );
         })}
       </select>
-      <p>{form.temperaments.map(e=>e)}</p>
       <p>{error.temperaments}</p>
+      <div>
+        {form.temperaments.map((e) => (
+          <div key={e} onClick={() => handleDelete(e)}>
+            <p>{`${e}`}</p>
+          </div>
+        ))}
+      </div>
+
       <input
         type="text"
         name="image"
@@ -121,107 +190,17 @@ const Post = () => {
       />
       <p>{error.image}</p>
       <button
-        className="buttonPost"
-        type="button"
+        className="button__Post"
+        type="submit"
+        form="form"
         value="button"
+        disabled={button}
         onClick={(e) => handleSumbit(e)}
       >
-        Post Breed
+        Postear Raza
       </button>
     </form>
   );
 };
 
 export default Post;
-
-/* const mapStateToProps = (state) => ({ temperament: state.temperament });
-class Create extends React.Component {
-  constructor(props) {
-    super(props);
-    = {
-      name: "",
-      height: "",
-      weight: "",
-      lifeSpan: "",
-      temperaments: "",
-      image: "",
-    };
-  }
-  renderTemperaments = () => {
-    return temperament.map((e) => {
-      return <option key={e.name}>{e.name}</option>;
-    });
-handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    te({
-      [name]: value,
-    });
-  };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    alert("The breed was posted succesfully");
-    postDogs(;
-    te(;
-  };
-  render() {
-    return (
-      <form>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="height"
-          placeholder="Height"
-          value={height}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="weight"
-          placeholder="Weight"
-          value={weight}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="lifeSpan"
-          placeholder="Life Span"
-          value={lifeSpan}
-          onChange={handleChange}
-        />
-        <select
-                    multiple
-           name="temperaments"
-          placeholder="Choose the dog´s temperament"
-          value={temperaments}
-          onChange={handleChange}
-        >
-          {Temperaments()}
-        </select>
-        <input
-          type="text"
-          name="image"
-          placeholder="Paste the link of an image"
-          value={image}
-          onChange={handleChange}
-        />
-        <button
-          className="buttonPost"
-          type="button"
-          value="button"
-          onClick={Submit}
-        >
-          Post Breed
-        </button>
-      </form>
-    );
-  }
-} */
-/* const create = connect(mapStateToProps, { getTemperaments, postDogs })(Create);
-export default create; */

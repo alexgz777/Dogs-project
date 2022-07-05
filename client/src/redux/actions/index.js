@@ -49,6 +49,7 @@ let searchDog = (name) => {
     return await axios
       .get(`${url}dogs?name=${name}`)
       .then((dogs) => {
+        console.log(dogs.data)
         dispatch({
           type: SEARCH_DOG,
           payload: dogs.data,
@@ -104,13 +105,13 @@ const filterCreated = (payload) => {
     payload,
   };
 };
-const OrderAlpha = (payload) => {
+const orderAlpha = (payload) => {
   return {
     type: ORDER_ALPHA,
     payload,
   };
 };
-const OrderWeight = (payload) => {
+const orderWeight = (payload) => {
   return {
     type: ORDER_WEIGHT,
     payload,
@@ -124,6 +125,6 @@ export {
   postDogs,
   filterTemperament,
   filterCreated,
-  OrderAlpha,
-  OrderWeight,
+  orderAlpha,
+  orderWeight,
 };

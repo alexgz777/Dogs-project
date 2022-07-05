@@ -35,9 +35,10 @@ export let reducer = (state = initialState, action) => {
         dogs: action.payload,
       };
     case GET_TEMPERAMENTS:
+      let temp = action.payload.filter((e) => e.name);
       return {
         ...state,
-        temperament: action.payload,
+        temperament: temp,
       };
     case POST_DOG:
       return {
@@ -53,9 +54,9 @@ export let reducer = (state = initialState, action) => {
     case FILTER_CREATED:
       let filteredCreated = state.filterDogs;
       if (action.payload === "Posteados")
-      filteredCreated = state.dogs.filter((e) => e.created === true);
+        filteredCreated = state.dogs.filter((e) => e.created === true);
       else if (action.payload === "Existentes")
-      filteredCreated = state.dogs.filter((e) => e.created === true);
+        filteredCreated = state.dogs.filter((e) => e.created === true);
       return {
         ...state,
         dogs: filteredCreated,

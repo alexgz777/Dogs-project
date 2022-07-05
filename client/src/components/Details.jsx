@@ -14,21 +14,21 @@ const Details = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="details">
       {dogs ? (
-        <>
-          <img className="breedImage" alt="breedImage" src={dogs.image.url} />
+        <div className="detail">
+          <img className="breedImageDetails" alt="breedImage" src={dogs.image.url} />
           <h2 className="title">{`${dogs.name}`}</h2>
-          <h3 className="subtitle">{`Temperamento: ${dogs.temperament}`}</h3>
+          <h3 className="subtitleTemp">{`Temperamento: ${dogs.temperament}`}</h3>
           <h3 className="subtitle">{`Peso: ${dogs.weight.metric} kg`}</h3>
           <h3 className="subtitle">{`Altura: ${dogs.height.metric} cm`}</h3>
           <h3 className="subtitle">{`Años de vida: ${dogs.life_span}`}</h3>
-        </>
+        </div>
       ) : (
         <p className="message__loading">Cargando...</p>
       )}
       <Link className="button__back" to="/home">
-        <button>Volver al Inicio</button>
+        Volver
       </Link>
     </div>
   );
