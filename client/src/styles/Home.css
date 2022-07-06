@@ -10,9 +10,27 @@
   background-color: #ec3f36;
   padding: 1em;
 }
+.home__filterSearch {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-auto-rows: 1fr 1fr;
+}
 .home__filter {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+}
+.filter__label {
+  justify-self: end;
+  color: white;
+  font-size: 18px;
+}
+.filter__select {
+  justify-self: left;
+  margin-left: 2em;
+  font-size: 14px;
+
 }
 .home__pages {
   text-align: center;
@@ -25,11 +43,6 @@
 .button__number:hover {
   transform: scale(1.3);
   transition: all 350ms;
-}
-.home__filterSearch {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 1fr 1fr;
 }
 
 label {

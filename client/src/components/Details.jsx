@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import { getDogId } from "../redux/actions";
+import { getDogId, resetFilters } from "../redux/actions";
 import "../styles/Details.css";
 
 const Details = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const dogs = useSelector((state) => state.dogs[0]);
+  const dogs = useSelector((state) => state.details[0]);
 
   useEffect(() => {
     dispatch(getDogId(id));
+    dispatch(resetFilters());
   }, [dispatch]);
 
   return (
     <div className="details">
       {dogs ? (
         <div className="detail">
-          <img className="breedImageDetails" alt="breedImage" src={dogs.image.url} />
+          <img
+            className="breedImageDetails"
+            alt="breedImage"
+            src={dogs.image.url}
+          />
           <h2 className="title">{`${dogs.name}`}</h2>
           <h3 className="subtitleTemp">{`Temperamento: ${dogs.temperament}`}</h3>
           <h3 className="subtitle">{`Peso: ${dogs.weight.metric} kg`}</h3>

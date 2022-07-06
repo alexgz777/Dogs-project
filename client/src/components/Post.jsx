@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Post.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, postDogs } from "../redux/actions";
+import "../styles/Post.css";
 
 const handleValidate = (inputs) => {
   let errors = {};
-  if (!inputs.name) errors.name = "Escriba el nombre";
+  if (!inputs.name || inputs.name !== typeof "string")
+    errors.name = "Escriba el nombre";
 
   if (!inputs.heightMin || !inputs.heightMax)
     errors.height = "Escriba la altura mínima y máxima";
+  if (inputs.heightMin > inputs.heightMax)
+    errors.height = "La altura máxima debe ser mayor";
   if (!inputs.weightMin || !inputs.weightMax)
     errors.weight = "Escriba el peso mínimo y máximo";
-
-  if (!inputs.lifeSpan) errors.lifeSpan = "Escriba los años de vida";
-  if (!inputs.temperaments) errors.temperaments = "Elija temperamento/s";
+  if (inputs.weightMin > inputs.weightMax)
+    errors.height = "El peso máximo debe ser mayor";
+  if (!inputs.lifeSpan || inputs.lifeSpan !== typeof "number")
+    errors.lifeSpan = "Escriba los años de vida";
+  if (!inputs.temperaments)
+    errors.temperaments = "Elija al menos un temperamento";
   if (!inputs.image) errors.image = "Coloque el link de una imagen";
   return errors;
 };
 
 const Post = () => {
   const temperament = useSelector((state) => state.temperament);
-  console.log(temperament);
   const dispatch = useDispatch();
 
   const [button, setButton] = useState(true);
@@ -51,7 +56,8 @@ const Post = () => {
       form.weightMin.length > 0 &&
       form.weightMax.length > 0 &&
       form.lifeSpan.length > 0
-    )setButton(false);
+    )
+      setButton(false);
     else setButton(true);
   }, [form, setButton]);
 
@@ -81,18 +87,18 @@ const Post = () => {
       })
     );
   };
-  const handleSumbit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError(handleValidate(form));
-    setForm(true);
-
+    /*     setForm(true);
+     */
     dispatch(postDogs(form));
     alert("La raza fue posteada exitosamente");
     setForm(initialState);
   };
 
   return (
-    <form className="post">
+    <form className="post" onSubmit={(e) => handleSubmit(e)}>
       <h1>Cargá los datos y posteá tu propia raza:</h1>
       <input
         type="text"
@@ -111,6 +117,7 @@ const Post = () => {
           value={form.height}
           onChange={(e) => handleChange(e)}
         />
+        <p className="input__p">cm</p>
 
         <input
           className="input__div"
@@ -120,6 +127,7 @@ const Post = () => {
           value={form.height}
           onChange={(e) => handleChange(e)}
         />
+        <p className="input__p">cm</p>
       </div>
       <div className="error__div">
         <p className="error__output">{error.height}</p>
@@ -134,6 +142,7 @@ const Post = () => {
           value={form.weight}
           onChange={(e) => handleChange(e)}
         />
+        <p className="input__p">kg</p>
 
         <input
           className="input__div"
@@ -143,6 +152,7 @@ const Post = () => {
           value={form.weight}
           onChange={(e) => handleChange(e)}
         />
+        <p className="input__p">kg</p>
       </div>
       <div className="error__div">
         <p className="error__output">{error.weight}</p>
@@ -156,30 +166,30 @@ const Post = () => {
         onChange={(e) => handleChange(e)}
       />
       <p>{error.lifeSpan}</p>
-      <select name="temperaments">
+      <select name="temperaments" onChange={(e) => handleTemperaments(e)}>
         <option disabled selected>
           Temperamentos
         </option>
-        {temperament.map((e) => {
+        {temperament?.map((e) => {
           return (
-            <option
-              key={e.id}
-              value={form.temperaments}
-              onChange={(e) => handleTemperaments(e)}
-            >
+            <option key={e.id} value={e.name}>
               {e.name}
             </option>
           );
         })}
       </select>
       <p>{error.temperaments}</p>
-      <div>
+      <ul className="temperaments__show">
         {form.temperaments.map((e) => (
-          <div key={e} onClick={() => handleDelete(e)}>
-            <p>{`${e}`}</p>
-          </div>
+          <button
+            className="temperaments__show--button"
+            key={e}
+            onClick={() => handleDelete(e)}
+          >
+            {e}
+          </button>
         ))}
-      </div>
+      </ul>
 
       <input
         type="text"
@@ -195,7 +205,6 @@ const Post = () => {
         form="form"
         value="button"
         disabled={button}
-        onClick={(e) => handleSumbit(e)}
       >
         Postear Raza
       </button>

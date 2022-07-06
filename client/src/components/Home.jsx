@@ -64,10 +64,10 @@ const Home = () => {
     <>
       <div className="home__filters">
         <div className="home__filterSearch">
-          <div className="home_filter">
+          <div className="home__filter">
             <>
-              <label>Filtrar por Temperamento:</label>
-              <select onChange={(e) => FilterTemperament(e)}>
+              <label className="filter__label">Filtrar por Temperamento:</label>
+              <select className="filter__select" onChange={(e) => FilterTemperament(e)}>
                 <option value="Filtrar">Sin filtros</option>
                 {temperament?.map((e) => {
                   return (
@@ -78,35 +78,37 @@ const Home = () => {
                 })}
               </select>
             </>
-            <br />
             <>
-              <label>Filtrar existentes/creados:</label>
-              <select onChange={(e) => FilterCreated(e)}>
+              <label className="filter__label">
+                Filtrar existentes/creados:
+              </label>
+              <select className="filter__select" onChange={(e) => FilterCreated(e)}>
                 <option value="Filtrar">Sin filtros</option>
                 <option value="Existentes">Existentes</option>
                 <option value="Posteados">Posteados</option>
               </select>
             </>
-            <br />
             <>
-              <label>Ordenar alfabeticamente:</label>
-              <select onChange={(e) => OrderAlpha(e)}>
+              <label className="filter__label">Ordenar alfabeticamente:</label>
+              <select className="filter__select" onChange={(e) => OrderAlpha(e)}>
                 <option value="Filtrar">Sin filtros</option>
                 <option value="Ascendente">Ascendente</option>
                 <option value="Descendente">Descendente</option>
               </select>
             </>
-            <br />
             <>
-              <label>Ordear por Peso:</label>
-              <select onChange={(e) => OrderWeight(e)}>
+              <label className="filter__label">Ordear por Peso:</label>
+              <select className="filter__select" onChange={(e) => OrderWeight(e)}>
                 <option value="Filtrar">Sin filtros</option>
                 <option value="Ascendente">Ascendente</option>
                 <option value="Descendente">Descendente</option>
               </select>
             </>
           </div>
-          <SearchBar className="home__searchbar" />
+          <SearchBar
+            setCurrentPage={setCurrentPage}
+            className="home__searchbar"
+          />
         </div>
         <>
           <ul className="home__pages">

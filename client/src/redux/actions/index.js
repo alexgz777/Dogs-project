@@ -9,6 +9,7 @@ export const FILTER_TEMPERAMENT = "FILTER_TEMPERAMENT";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_ALPHA = "FILTER_TALPHA";
 export const ORDER_WEIGHT = "FILTER_WEIGHT";
+export const RESET_FILTERS = "RESET_FILTERS";
 
 let url = "http://localhost:3001/";
 
@@ -49,7 +50,7 @@ let searchDog = (name) => {
     return await axios
       .get(`${url}dogs?name=${name}`)
       .then((dogs) => {
-        console.log(dogs.data)
+        console.log(dogs.data);
         dispatch({
           type: SEARCH_DOG,
           payload: dogs.data,
@@ -80,7 +81,7 @@ let getTemperaments = () => {
 let postDogs = (data) => {
   return async (dispatch) => {
     return await axios
-      .get(`${url}dogs`, data)
+      .post(`${url}dogs`, data)
       .then((dog) => {
         dispatch({
           type: POST_DOG,
@@ -92,7 +93,11 @@ let postDogs = (data) => {
       });
   };
 };
-
+const resetFilters = () => {
+  return {
+    type: RESET_FILTERS,
+  };
+};
 const filterTemperament = (payload) => {
   return {
     type: FILTER_TEMPERAMENT,
@@ -123,6 +128,7 @@ export {
   searchDog,
   getTemperaments,
   postDogs,
+  resetFilters,
   filterTemperament,
   filterCreated,
   orderAlpha,

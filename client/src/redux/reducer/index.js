@@ -8,12 +8,14 @@ import {
   FILTER_CREATED,
   ORDER_ALPHA,
   ORDER_WEIGHT,
+  RESET_FILTERS,
 } from "../actions";
 
 let initialState = {
   dogs: [],
   filterDogs: [],
   temperament: [],
+  details: [],
 };
 
 export let reducer = (state = initialState, action) => {
@@ -28,11 +30,13 @@ export let reducer = (state = initialState, action) => {
       return {
         ...state,
         dogs: action.payload,
+        details: action.payload,
       };
     case SEARCH_DOG:
       return {
         ...state,
         dogs: action.payload,
+        details: action.payload,
       };
     case GET_TEMPERAMENTS:
       let temp = action.payload.filter((e) => e.name);
@@ -98,6 +102,12 @@ export let reducer = (state = initialState, action) => {
       return {
         ...state,
         dogs: orderedWeight,
+      };
+    case RESET_FILTERS:
+      return {
+        ...state,
+        dogs: [],
+        details: [],
       };
     default:
       return state;

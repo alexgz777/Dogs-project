@@ -1,37 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { searchDog } from "../redux/actions";
+import { searchDog, resetFilters } from "../redux/actions";
 import "../styles/SearchBar.css";
 
-const SearchBar = () => {
+const SearchBar = ({ setCurrentPage }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
-  const handleInput = (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
     setName(e.target.value);
   };
-  const handleSearch = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(searchDog(name));
-    setName("");
+    setCurrentPage(1);
   };
+  useEffect(() => {
+    dispatch(resetFilters());
+  }, [dispatch]);
+
   return (
-    <div className="searchbar">
+    <form className="searchbar" onSubmit={(e) => handleSubmit(e)}>
       <input
-        onClick={(e) => handleInput(e)}
+        onChange={(e) => handleChange(e)}
         placeholder="Buscar una raza de perros.."
         className="input__search"
         type="text"
       />
-      <button
-        onClick={(e) => handleSearch(e)}
-        className="button__search"
-        type="submit"
-      >
+      <button className="button__search" type="submit">
         Buscar
       </button>
-    </div>
+    </form>
   );
 };
 
