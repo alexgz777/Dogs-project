@@ -1,11 +1,5 @@
 const { Router } = require("express");
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-
 const router = Router();
-
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
 const {
   getDogs,
   getDogsByName,
@@ -50,12 +44,27 @@ router.get("/temperaments", (req, res) => {
     });
 });
 router.post("/dogs", (req, res) => {
-  const { name, height, weight, lifeSpan, temperament } = req.body;
-  postDogs(name, height, weight, lifeSpan, temperament)
-    .then((data) => res.status(200).json(data).send("La raza ha sido posteada existosamente"))
+  const {
+    name,
+    heightMin,
+    heightMax,
+    weightMin,
+    weightMax,
+    lifeSpan,
+    image,
+    temperaments,
+  } = req.body;
+
+  const height = [];
+  height.push(heightMin, heightMax);
+  const weight = [];
+  weight.push(weightMin, weightMax);
+
+  postDogs(name, height, weight, lifeSpan, image, temperaments)
+    .then((data) => res.status(200).send(data))
     .catch((error) => {
       console.error(error);
-      res.status(400).send(`La raza no ha podido ser posteada`);
+      return res.status(400).send(`La raza no ha podido ser posteada`);
     });
 });
 

@@ -1,16 +1,41 @@
 const { Dog, Temperament } = require("../db");
 const fetch = require("cross-fetch");
+const { default: axios } = require("axios");
 
 let url = "https://api.thedogapi.com/v1/breeds";
 
-let getDogs = () => {
-  let dogs = fetch(url)
-    .then((res) => res.json())
-    .catch((error) => {
-      console.error(error);
-    });
-  return dogs;
+let getDogsApi = async () => {
+  let dogs = await axios.get(url).then((res) => res.data);
+  return dogs.map((e) => {
+    return {
+      id: e.id,
+      name: e.name,
+      height: e.height.metric,
+      weight: e.weight.metric,
+      lifeSpan: e.lifeSpan,
+      image: e.image.url,
+      temperament: e.temperament,
+      created: false,
+    };
+  });
 };
+let getDogsDb = async () => {
+  return await Dog.findAll({
+    include: {
+      model: Temperament,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+};
+let getDogs = async () => {
+  let api = await getDogsApi();
+  let db = await getDogsDb();
+  return [...api, ...db];
+};
+
 let getDogsByName = (name) => {
   let dogs = fetch(url)
     .then((res) => res.json())
@@ -62,19 +87,19 @@ let getTemperaments = () => {
     });
   return dogs;
 };
-let postDogs = (name, height, weight, lifeSpan, temperament) => {
-  let dog = Dog.create({ name, height, weight, lifeSpan });
-  let temperaments = Temperament.findAll({
-    where: {
-      name: temperament,
-    },
-  })
-  /*   .then(() => {
-      dog.addTemperament(temperaments);
-    }) */
-    .catch((error) => {
-      console.error(error);
+let postDogs = async (name, height, weight, lifeSpan, image, temperaments) => {
+  try {
+    let dog = await Dog.create({ name, height, weight, lifeSpan, image });
+    let temp = await Temperament.findAll({
+      where: {
+        name: temperaments,
+      },
     });
+    dog.addTemperament(temp);
+    return "La raza ha sido posteada exitosamente";
+  } catch (error) {
+    console.error(error);
+  }
 };
 module.exports = {
   getDogs,
