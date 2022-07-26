@@ -7,8 +7,7 @@
   margin-top: 2em;
   margin-left: 20em;
   margin-right: 20em;
-  padding-bottom: 4em;
-  padding-top: 2em;
+  padding-bottom: 2em;
   color: white;
   background-color: #493a64;
   border-radius: 1em;
@@ -16,37 +15,20 @@
   outline-width: 0.3em;
   outline-offset: -10px;
 }
-/* .button__Post {
-  width: 10em;
-  height: 2.5em;
-  background-color: #ec3f36;
-  padding-top: 1em;
-  font-size: 15px;
-  font-weight: bold;
-  color: white;
-  border-radius: 0.5em;
-  border: none;
-} */
-/* .button__Post:hover {
-  transform: scale(1.1);
-  transition: all 300ms;
-} */
 input {
   width: 20em;
 }
 select {
-  width: 20em;
+  width: 20.5em;
   text-align: center;
 }
 .form__div {
   display: grid;
-  grid-template-columns: 1fr 1em 1fr 1em /* repeat(4,1fr) */;
+  grid-template-columns: 1fr 2em 1fr 2em;
 }
 .input__div {
-  width: 7.5em;
+  width: 7.3em;
   height: 1.4em;
-  margin-left: 1em;
-  margin-right: 1em;
   justify-self: center;
   align-self: center;
 }
@@ -62,8 +44,6 @@ select {
 .input__p {
   width: 1em;
   height: 1em;
-}
-.temperaments__show {
 }
 .temperaments__show--button {
   width: fit-content;

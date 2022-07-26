@@ -11,12 +11,12 @@ export const ORDER_ALPHA = "FILTER_TALPHA";
 export const ORDER_WEIGHT = "FILTER_WEIGHT";
 export const RESET_FILTERS = "RESET_FILTERS";
 
-let url = "http://localhost:3001/";
+/* let url = "http://localhost:3001/"; */
 
 let getDogs = () => {
   return async (dispatch) => {
     return await axios
-      .get(`${url}dogs`)
+      .get(`/dogs`)
       .then((dogs) => {
         dispatch({
           type: GET_DOGS,
@@ -32,7 +32,7 @@ let getDogs = () => {
 let getDogId = (id) => {
   return async (dispatch) => {
     return await axios
-      .get(`${url}dogs/${id}`)
+      .get(`/dogs/${id}`)
       .then((dogs) => {
         dispatch({
           type: GET_DOG_ID,
@@ -48,7 +48,7 @@ let getDogId = (id) => {
 let searchDog = (name) => {
   return async (dispatch) => {
     return await axios
-      .get(`${url}dogs?name=${name}`)
+      .get(`/dogs?name=${name}`)
       .then((dogs) => {
         console.log(dogs.data);
         dispatch({
@@ -65,7 +65,7 @@ let searchDog = (name) => {
 let getTemperaments = () => {
   return async (dispatch) => {
     return await axios
-      .get(`${url}temperaments`)
+      .get(`/temperaments`)
       .then((temperament) => {
         dispatch({
           type: GET_TEMPERAMENTS,
@@ -80,8 +80,8 @@ let getTemperaments = () => {
 
 let postDogs = (data) => {
   return async (dispatch) => {
-    return await axios
-      .post(`${url}dogs`, data)
+    return axios
+      .post(`/dogs`, data)
       .then((dog) => {
         dispatch({
           type: POST_DOG,

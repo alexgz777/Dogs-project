@@ -80,7 +80,7 @@ const Home = () => {
             </>
             <>
               <label className="filter__label">
-                Filtrar existentes/creados:
+                Filtrar existentes/posteados:
               </label>
               <select className="filter__select" onChange={(e) => FilterCreated(e)}>
                 <option value="Filtrar">Sin filtros</option>
@@ -153,10 +153,10 @@ const Home = () => {
             <Card
               key={e.id}
               id={e.id}
-              image={e.image.url}
+              image={e.image}
               name={e.name}
               temperament={e.temperament}
-              weight={e.weight.metric}
+              weight={e.weight}
             />
           );
         })}

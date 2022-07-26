@@ -5,8 +5,7 @@ import "../styles/Post.css";
 
 const handleValidate = (inputs) => {
   let errors = {};
-  if (!inputs.name || inputs.name !== typeof "string")
-    errors.name = "Escriba el nombre";
+  if (!inputs.name) errors.name = "Escriba el nombre";
 
   if (!inputs.heightMin || !inputs.heightMax)
     errors.height = "Escriba la altura mínima y máxima";
@@ -37,10 +36,9 @@ const Post = () => {
     weightMin: "",
     weightMax: "",
     lifeSpan: "",
-    temperaments: [],
     image: "",
+    temperaments: [],
   };
-
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState(initialState);
 
@@ -90,15 +88,15 @@ const Post = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(handleValidate(form));
-    /*     setForm(true);
-     */
+    setForm(true);
+
     dispatch(postDogs(form));
     alert("La raza fue posteada exitosamente");
     setForm(initialState);
   };
 
   return (
-    <form className="post" onSubmit={(e) => handleSubmit(e)}>
+    <form className="post">
       <h1>Cargá los datos y posteá tu propia raza:</h1>
       <input
         type="text"
@@ -114,7 +112,7 @@ const Post = () => {
           type="text"
           name="heightMin"
           placeholder="Altura Min"
-          value={form.height}
+          value={form.heightMin}
           onChange={(e) => handleChange(e)}
         />
         <p className="input__p">cm</p>
@@ -124,7 +122,7 @@ const Post = () => {
           type="text"
           name="heightMax"
           placeholder="Altura Max"
-          value={form.height}
+          value={form.heightMax}
           onChange={(e) => handleChange(e)}
         />
         <p className="input__p">cm</p>
@@ -139,7 +137,7 @@ const Post = () => {
           type="text"
           name="weightMin"
           placeholder="Peso Min"
-          value={form.weight}
+          value={form.weightMin}
           onChange={(e) => handleChange(e)}
         />
         <p className="input__p">kg</p>
@@ -149,7 +147,7 @@ const Post = () => {
           type="text"
           name="weightMax"
           placeholder="Peso Max"
-          value={form.weight}
+          value={form.weightMax}
           onChange={(e) => handleChange(e)}
         />
         <p className="input__p">kg</p>
@@ -167,9 +165,7 @@ const Post = () => {
       />
       <p>{error.lifeSpan}</p>
       <select name="temperaments" onChange={(e) => handleTemperaments(e)}>
-        <option disabled selected>
-          Temperamentos
-        </option>
+        <option value="Temperamentos">Temperamentos</option>
         {temperament?.map((e) => {
           return (
             <option key={e.id} value={e.name}>
@@ -205,6 +201,7 @@ const Post = () => {
         form="form"
         value="button"
         disabled={button}
+        onClick={(e) => handleSubmit(e)}
       >
         Postear Raza
       </button>

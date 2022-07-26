@@ -24,12 +24,14 @@
 .filter__label {
   justify-self: end;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
 }
 .filter__select {
   justify-self: left;
-  margin-left: 2em;
+  margin-left: 1em;
   font-size: 14px;
+  height: min-content;
+  width: 8em;
 
 }
 .home__pages {
