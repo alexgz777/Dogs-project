@@ -166,7 +166,7 @@ const Post = () => {
       <p>{error.lifeSpan}</p>
       <select name="temperaments" onChange={(e) => handleTemperaments(e)}>
         <option value="Temperamentos">Temperamentos</option>
-        {temperament?.map((e) => {
+        {temperament.map((e) => {
           return (
             <option key={e.id} value={e.name}>
               {e.name}

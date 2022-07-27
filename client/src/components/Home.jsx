@@ -67,9 +67,11 @@ const Home = () => {
           <div className="home__filter">
             <>
               <label className="filter__label">Filtrar por Temperamento:</label>
-              <select className="filter__select" onChange={(e) => FilterTemperament(e)}>
-                <option value="Filtrar">Sin filtros</option>
-                {temperament?.map((e) => {
+              <select
+                className="filter__select"
+                onChange={(e) => FilterTemperament(e)}
+              >
+                {temperament.map((e) => {
                   return (
                     <option key={e.id} value={e.name}>
                       {e.name}
@@ -82,7 +84,10 @@ const Home = () => {
               <label className="filter__label">
                 Filtrar existentes/posteados:
               </label>
-              <select className="filter__select" onChange={(e) => FilterCreated(e)}>
+              <select
+                className="filter__select"
+                onChange={(e) => FilterCreated(e)}
+              >
                 <option value="Filtrar">Sin filtros</option>
                 <option value="Existentes">Existentes</option>
                 <option value="Posteados">Posteados</option>
@@ -90,7 +95,10 @@ const Home = () => {
             </>
             <>
               <label className="filter__label">Ordenar alfabeticamente:</label>
-              <select className="filter__select" onChange={(e) => OrderAlpha(e)}>
+              <select
+                className="filter__select"
+                onChange={(e) => OrderAlpha(e)}
+              >
                 <option value="Filtrar">Sin filtros</option>
                 <option value="Ascendente">Ascendente</option>
                 <option value="Descendente">Descendente</option>
@@ -98,7 +106,10 @@ const Home = () => {
             </>
             <>
               <label className="filter__label">Ordear por Peso:</label>
-              <select className="filter__select" onChange={(e) => OrderWeight(e)}>
+              <select
+                className="filter__select"
+                onChange={(e) => OrderWeight(e)}
+              >
                 <option value="Filtrar">Sin filtros</option>
                 <option value="Ascendente">Ascendente</option>
                 <option value="Descendente">Descendente</option>
@@ -119,7 +130,7 @@ const Home = () => {
             >
               {"<"}
             </button>
-            {pageNumber?.map((number) => {
+            {pageNumber.map((number) => {
               return (
                 <button
                   onClick={() => page(number)}
@@ -148,7 +159,7 @@ const Home = () => {
         <h2 className="home__sub">Clickeá para ver mas info</h2>
       </div>
       <div className="home__dogs">
-        {currentItems?.map((e) => {
+        {currentItems.map((e) => {
           return (
             <Card
               key={e.id}
